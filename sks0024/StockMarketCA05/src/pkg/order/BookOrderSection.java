@@ -10,16 +10,29 @@ public class BookOrderSection {
 	private BookOrderTable table;
 	
 	public BookOrderSection(String stockSymbol, ArrayList<Order> buys, ArrayList<Order> sells) {
+		//set stock symbol
 		this.stockSymbol = stockSymbol;
+		//set the buy orders for the section
 		this.buyOrders = buys;
+		//set the sell orders for the section
 		this.sellOrders = sells;
+		//create a new book order table (this is the actual table that is in the picture)
 		this.table = new BookOrderTable();
+		//Add the same buy orders to the actual table
 		table.addBuyOrders(buys);
+		//Add the same sell orders to the actual table
 		table.addSellOrders(sells);
-		
 	}
 	
-	
+//	public void wasteTime() {
+//		for (int i = 0; i < 1000; i++) {
+//			for (int j = 0; j < 1000; j++) {
+//				for (int k = 0; k < 1000; k++) {
+//					System.out.println("Waste of space function");
+//				}
+//			}
+//		}
+//	}
 	
 	public String getStockSymbol() {
 		return stockSymbol;
@@ -47,7 +60,9 @@ public class BookOrderSection {
 	}
 
 	public Double findMatchPrice() {
+		//calculate the cumulative prices for each of the rows of the table
 		this.table.calcCumulativePrice();
+		//then just return the match price
 		return table.findMatchPrice();
 	}
 }

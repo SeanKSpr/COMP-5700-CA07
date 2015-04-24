@@ -2,7 +2,8 @@ package pkg.order;
 
 import pkg.exception.StockMarketExpection;
 import pkg.trader.Trader;
-
+//TODO: Buy milk, bread, and eggs
+//TODO: Finish senior design.
 public class SellOrder extends Order {
 	public SellOrder(String stockSymbol, int size, double price, Trader trader) {
 		this.stockSymbol = stockSymbol;
@@ -33,8 +34,9 @@ public class SellOrder extends Order {
 		}
 		
 	}
-
+	
 	public void printOrder() {
+		//What does this mysterious function do?
 		System.out.println("Stock: " + stockSymbol + " $" + price + " x "
 				+ size + " (Sell)");
 	}

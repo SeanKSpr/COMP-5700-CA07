@@ -33,7 +33,8 @@ public class BuyOrder extends Order {
 			throw new StockMarketExpection("BuyOrder.BuyOrder: Was called with isMarketOrder set to false");
 		}
 	}
-
+	
+	//print the order stuff
 	public void printOrder() {
 		System.out.println("Stock: " + stockSymbol + " $" + price + " x "
 				+ size + " (Buy)");

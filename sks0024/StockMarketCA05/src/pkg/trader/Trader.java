@@ -138,13 +138,15 @@ public class Trader {
 			doSellStock(o, matchPrice);
 		}
 	}
-
+	
+	//TODO:rename
 	private void doSellStock(Order orderBeingSold, double matchPrice) {
 		OrderUtility.findAndExtractOrder(ordersPlaced, orderBeingSold.getStockSymbol());
 		OrderUtility.findAndExtractOrder(position, orderBeingSold.getStockSymbol());
 		cashInHand += orderBeingSold.getSize() * matchPrice;
 	}
-
+	
+	//TODO:rename
 	private void doBuyStock(Order orderBeingPurchased, double matchPrice) {
 		OrderUtility.findAndExtractOrder(ordersPlaced, orderBeingPurchased.getStockSymbol());
 		addToPosition(orderBeingPurchased);
@@ -178,4 +180,10 @@ public class Trader {
 		System.out.println("+++++++++++++++++++++");
 		System.out.println("+++++++++++++++++++++");
 	}
+	
+	/*
+	 * public String getFunnyString() {
+	 * 		return "[insert joke here]"
+	 * }
+	 */
 }

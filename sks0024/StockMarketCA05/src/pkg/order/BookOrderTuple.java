@@ -16,6 +16,7 @@ public class BookOrderTuple {
 		sellOrderLeastFavorablePrice = 0;
 	}
 	public Integer minOfOrder() {
+		//tra la la
 		if (this.buyOrderLeastFavorablePrice < this.sellOrderLeastFavorablePrice) {
 			return this.buyOrderLeastFavorablePrice;
 		}
@@ -34,36 +35,47 @@ public class BookOrderTuple {
 	public Integer getBuyOrderLeastFavorablePrice() {
 		return buyOrderLeastFavorablePrice;
 	}
+	
 	public void setBuyOrderLeastFavorablePrice(Integer buyOrderLeastFavorablePrice) {
 		this.buyOrderLeastFavorablePrice = buyOrderLeastFavorablePrice;
 	}
+	
 	public Integer getSellOrderLeastFavorablePrice() {
 		return sellOrderLeastFavorablePrice;
 	}
+	
 	public void setSellOrderLeastFavorablePrice(Integer sellOrderLeastFavorablePrice) {
 		this.sellOrderLeastFavorablePrice = sellOrderLeastFavorablePrice;
 	}
+	
 	public Double getPrice() {
 		return price;
 	}
+	
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
 	public Integer getBuyOrderAmount() {
 		return buyOrderCumulativePerPrice;
 	}
+	
 	public void setBuyOrderAmount(Integer buyOrderAmount) {
 		this.buyOrderCumulativePerPrice = buyOrderAmount;
 	}
+	
 	public void addBuyOrderAmount(Integer amount) {
 		this.buyOrderCumulativePerPrice += amount;
 	}
+	
 	public Integer getSellOrderAmount() {
 		return sellOrderCumulativePerPrice;
 	}
+	
 	public void setSellOrderAmount(Integer sellOrderAmount) {
 		this.sellOrderCumulativePerPrice = sellOrderAmount;
 	}
+	
 	public void addSellOrderAmount(Integer amount) {
 		this.sellOrderCumulativePerPrice += amount;
 	}

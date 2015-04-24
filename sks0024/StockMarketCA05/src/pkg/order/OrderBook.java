@@ -9,6 +9,7 @@ import pkg.market.Market;
 import pkg.market.api.PriceSetter;
 
 public class OrderBook {
+	//Market
 	Market m;
 	HashMap<String, ArrayList<Order>> buyOrders;
 	HashMap<String, ArrayList<Order>> sellOrders;
@@ -55,24 +56,33 @@ public class OrderBook {
 		ArrayList<String> stockSymbols = new ArrayList<String>();
 		getStockSymbols(stockSymbols);
 		
+		//Do everything
 		for (String stockSymbol : stockSymbols) {
 			ArrayList<Order> buys = new ArrayList<Order>();
 			ArrayList<Order> sells = new ArrayList<Order>();
+			
 			if (this.buyOrders.containsKey(stockSymbol)) {
 				buys = this.buyOrders.get(stockSymbol);
 			}
 			if (this.sellOrders.containsKey(stockSymbol)) {
 				sells = this.sellOrders.get(stockSymbol);
 			}
+			//create a section of the orderbook this would be like the "Starbucks" page in the order book
 			BookOrderSection section = new BookOrderSection(stockSymbol,buys,sells);
+			//That top statement will create the entire table and stuff associated with the stock
+			//We can now just get the match price from the table
 			double matchPrice = section.findMatchPrice();
+			//Now we want to set the new price of the stock to the match price
 			PriceSetter pc = new PriceSetter();
 			this.m.getMarketHistory().setSubject(pc);
 			pc.registerObserver(this.m.getMarketHistory());
 			pc.setNewPrice(this.m, stockSymbol, matchPrice);
+			//Get all the orders traded
 			ArrayList<Order> buyOrdersTraded = findBuyOrdersTraded(matchPrice, buyOrders.get(stockSymbol));
 			ArrayList<Order> sellOrdersTraded = findSellOrdersTraded(matchPrice, sellOrders.get(stockSymbol));
+			//tell the traders to update their trade lists and stuff
 			delegateTradesToTraders(buyOrdersTraded, sellOrdersTraded, matchPrice);
+			//then remove the orders which were traded from the orders placed list
 			removeTradedOrders(stockSymbol, buyOrdersTraded, sellOrdersTraded);
 		}
 		
@@ -134,7 +144,7 @@ public class OrderBook {
 		}
 		return buyOrdersTraded;
 	}
-
+	
 	private void getStockSymbols(ArrayList<String> stockSymbols) {
 		for (Map.Entry<String, ArrayList<Order>> entry : buyOrders.entrySet()) {
 			String stockSymbol = entry.getKey();

@@ -31,9 +31,11 @@ public class BookOrderTable {
 	public void addBuyOrder(Order order) {
 		int index = getMatchingIndex(order.getPrice());
 		if (index >= 0) {
+			//update existing buy order 
 			table.get(index).addBuyOrderAmount(order.getSize());
 		}
 		else {
+			//add new buy order
 			BookOrderTuple tuple = new BookOrderTuple();
 			tuple.setPrice(order.getPrice());
 			tuple.setBuyOrderAmount(order.getSize());
@@ -44,9 +46,11 @@ public class BookOrderTable {
 	public void addSellOrder(Order order) {
 		int index = getMatchingIndex(order.getPrice());
 		if (index >= 0) {
+			//update existing sell order
 			table.get(index).addSellOrderAmount(order.getSize());
 		}
 		else {
+			//add new sell order
 			BookOrderTuple tuple = new BookOrderTuple();
 			tuple.setPrice(order.getPrice());
 			tuple.setSellOrderAmount(order.getSize());
@@ -64,6 +68,8 @@ public class BookOrderTable {
 					tupleToCompare.addBuyOrderLeastFavorablePrice(tupleToAccumulate.getBuyOrderAmount());
 				}
 				else {
+					//This will happen if the two tuples are actually the same. 
+					//Just adds the initial volume of orders to the cumulative orders (so like 0 + 700) 
 					tupleToCompare.addBuyOrderLeastFavorablePrice(tupleToAccumulate.getBuyOrderAmount());
 					tupleToCompare.addSellOrderLeastFavorablePrice(tupleToAccumulate.getSellOrderAmount());
 				}
@@ -73,6 +79,7 @@ public class BookOrderTable {
 	
 	public Double findMatchPrice() {
 		BookOrderTuple BiggestMin = new BookOrderTuple();
+		//find largest minimum cumulative orders. That'll be the match price
 		for (BookOrderTuple tuple : table) {
 			Integer min = tuple.minOfOrder();
 			if (min > BiggestMin.minOfOrder()) {
