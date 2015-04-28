@@ -9,13 +9,12 @@ import pkg.market.Market;
 import pkg.market.api.PriceSetter;
 
 public class OrderBook {
-	//Market
-	Market m;
+	Market market;
 	HashMap<String, ArrayList<Order>> buyOrders;
 	HashMap<String, ArrayList<Order>> sellOrders;
 
-	public OrderBook(Market m) {
-		this.m = m;
+	public OrderBook(Market market) {
+		this.market = market;
 		buyOrders = new HashMap<String, ArrayList<Order>>();
 		sellOrders = new HashMap<String, ArrayList<Order>>();
 	}
@@ -40,23 +39,25 @@ public class OrderBook {
 			sellOrders.put(order.getStockSymbol(), orderList);
 		}
 	}
-
+	
+	/**
+	 * trade goes through each Stock associated with the market and performs stock trading of buy and sell orders.
+	 * After determining the largest number of trade transactions which can occur for a particular stock, the trade
+	 * price which resulted in the greatest trade transaction shall be made the new stock price. Afterwards, those stocks
+	 * which were traded will be updated with the Traders' order lists.
+	 *		2. Find the matching price
+	 *		3. Update the stocks price in the market using the PriceSetter.
+	 *		4. Remove the traded orders from the orderbook
+	 *		5. Delegate to trader that the trade has been made, so that the
+	 *			trader's orders can be placed to his possession (a trader's position
+	 *			is the stocks he owns)
+	 */
 	public void trade() {
-		// Complete the trading.
-		// 1. Follow and create the orderbook data representation (see spec)
-		// 2. Find the matching price
-		// 3. Update the stocks price in the market using the PriceSetter.
-		// Note that PriceSetter follows the Observer pattern. Use the pattern.
-		// 4. Remove the traded orders from the orderbook
-		// 5. Delegate to trader that the trade has been made, so that the
-		// trader's orders can be placed to his possession (a trader's position
-		// is the stocks he owns)
-		// (Add other methods as necessary)
+
 		
 		ArrayList<String> stockSymbols = new ArrayList<String>();
 		getStockSymbols(stockSymbols);
 		
-		//Do everything
 		for (String stockSymbol : stockSymbols) {
 			ArrayList<Order> buys = new ArrayList<Order>();
 			ArrayList<Order> sells = new ArrayList<Order>();
@@ -70,13 +71,13 @@ public class OrderBook {
 			//create a section of the orderbook this would be like the "Starbucks" page in the order book
 			BookOrderSection section = new BookOrderSection(stockSymbol,buys,sells);
 			//That top statement will create the entire table and stuff associated with the stock
-			//We can now just get the match price from the table
+			
 			double matchPrice = section.findMatchPrice();
 			//Now we want to set the new price of the stock to the match price
 			PriceSetter pc = new PriceSetter();
-			this.m.getMarketHistory().setSubject(pc);
-			pc.registerObserver(this.m.getMarketHistory());
-			pc.setNewPrice(this.m, stockSymbol, matchPrice);
+			this.market.getMarketHistory().setSubject(pc);
+			pc.registerObserver(this.market.getMarketHistory());
+			pc.setNewPrice(this.market, stockSymbol, matchPrice);
 			//Get all the orders traded
 			ArrayList<Order> buyOrdersTraded = findBuyOrdersTraded(matchPrice, buyOrders.get(stockSymbol));
 			ArrayList<Order> sellOrdersTraded = findSellOrdersTraded(matchPrice, sellOrders.get(stockSymbol));
