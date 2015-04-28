@@ -41,9 +41,10 @@ public class OrderBook {
 	}
 	
 	/**
-	 * trade goes through each Stock associated with the market and performs stock trading of buy and sell orders.
-	 * After determining the largest number of trade transactions which can occur for a particular stock, the trade
-	 * price which resulted in the greatest trade transaction shall be made the new stock price. Afterwards, those stocks
+	 * trade goes through each Stock associated with the market and performs stock trading 
+	 * of buy and sell orders. After determining the largest number of trade transactions 
+	 * which can occur for a particular stock, the trade price which resulted in the greatest 
+	 * trade transaction shall be made the new stock price. Afterwards, those stocks
 	 * which were traded will be updated with the Traders' order lists.
 	 *		2. Find the matching price
 	 *		3. Update the stocks price in the market using the PriceSetter.
