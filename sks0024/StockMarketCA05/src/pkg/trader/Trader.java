@@ -39,15 +39,16 @@ public class Trader {
 		// Adjust cash possessed since the trader spent money to purchase a
 		// stock.
 		Stock stockBeingPurchased = m.getStockForSymbol(symbol);
-		if (stockBeingPurchased.getPrice() * volume > this.cashInHand) {
+		double totalCostOfStockPurchase = stockBeingPurchased.getPrice() * volume;
+		if (totalCostOfStockPurchase > this.cashInHand) {
 			throw new StockMarketExpection("Trader.buyFromBank: Not enough cash on hand to make purchase. Trader: " + this.name);
 		}
-		cashInHand = (cashInHand - stockBeingPurchased.getPrice() * volume);
+		cashInHand = (cashInHand - totalCostOfStockPurchase);
 		BuyOrder order = new BuyOrder(symbol, volume, stockBeingPurchased.getPrice(), this);
 		addToPosition(order);
 	}
 
-	public void placeNewOrder(Market m, String symbol, int volume,
+	public void placeNewOrder(Market marketContainingStock, String symbol, int volume,
 			double price, OrderType orderType) throws StockMarketExpection {
 		// Place a new order and add to the orderlist
 		// Also enter the order into the orderbook of the market.
@@ -82,7 +83,7 @@ public class Trader {
 		}
 		
 		ordersPlaced.add(order);
-		m.addOrder(order);
+		marketContainingStock.addOrder(order);
 	}
 
 	public void placeNewMarketOrder(Market m, String symbol, int volume,
@@ -112,7 +113,7 @@ public class Trader {
 		m.addOrder(order);
 	}
 
-	public void tradePerformed(Order o, double matchPrice)
+	public void tradePerformed(Order orderBeingTraded, double matchPrice)
 			throws StockMarketExpection {
 		// Notification received that a trade has been made, the parameters are
 		// the order corresponding to the trade, and the match price calculated
@@ -122,20 +123,20 @@ public class Trader {
 
 		// Update the trader's orderPlaced, position, and cashInHand members
 		// based on the notification.
-		if (o instanceof BuyOrder) {
-			if (matchPrice * o.getSize() > this.cashInHand) {
+		if (orderBeingTraded instanceof BuyOrder) {
+			if (matchPrice * orderBeingTraded.getSize() > this.cashInHand) {
 				throw new StockMarketExpection("Trader.placeNewOrder: Not enough cash on hand to make purchase.  Trader: " + this.name);
 			}
-			doBuyStock(o, matchPrice);
+			doBuyStock(orderBeingTraded, matchPrice);
 		}
-		else if (o instanceof SellOrder) {
-			if (!OrderUtility.owns(position, o.getStockSymbol())) {
+		else if (orderBeingTraded instanceof SellOrder) {
+			if (!OrderUtility.owns(position, orderBeingTraded.getStockSymbol())) {
 				throw new StockMarketExpection("Trader.placeNewOrder: Attempting to place sell order on stock that isn't owned.  Trader: " + this.name);
 			}
-			else if (OrderUtility.ownedQuantity(position, o.getStockSymbol()) < o.getSize()) {
+			else if (OrderUtility.ownedQuantity(position, orderBeingTraded.getStockSymbol()) < orderBeingTraded.getSize()) {
 				throw new StockMarketExpection("Trader.placeNewOrder: Attempting to sell more orders than owned.  Trader: " + this.name);	
 			}
-			doSellStock(o, matchPrice);
+			doSellStock(orderBeingTraded, matchPrice);
 		}
 	}
 	
