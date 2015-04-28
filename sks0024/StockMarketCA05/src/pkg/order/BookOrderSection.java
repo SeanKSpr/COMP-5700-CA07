@@ -10,9 +10,7 @@ public class BookOrderSection {
 	private BookOrderTable table;
 	
 	public BookOrderSection(String stockSymbol, ArrayList<Order> buys, ArrayList<Order> sells) {
-		//set stock symbol
 		this.stockSymbol = stockSymbol;
-		//set the buy orders for the section
 		this.buyOrders = buys;
 		//set the sell orders for the section
 		this.sellOrders = sells;
@@ -23,16 +21,6 @@ public class BookOrderSection {
 		//Add the same sell orders to the actual table
 		table.addSellOrders(sells);
 	}
-	
-//	public void wasteTime() {
-//		for (int i = 0; i < 1000; i++) {
-//			for (int j = 0; j < 1000; j++) {
-//				for (int k = 0; k < 1000; k++) {
-//					System.out.println("Waste of space function");
-//				}
-//			}
-//		}
-//	}
 	
 	public String getStockSymbol() {
 		return stockSymbol;
