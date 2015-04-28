@@ -3,14 +3,14 @@ Sean's CA05 for reviewers.
 
 **Reviewers:**
 
-ethanmata
+Ethan Mata - ethanmata
 
-Betreyu
+Kara Born - Betreyu
 
-ran0005
+Ryan Nichols - ran0005
 
-glitchytoast
+Zachary Parrish - glitchytoast
 
-jenlynchh
+Jennifer Lynch - jenlynch
 
-yzd0014
+Yitong Dai - yzd0014
