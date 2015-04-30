@@ -66,7 +66,6 @@ public class Client {
 		trader8.printTrader();
 		trader15.printTrader();
 
-		// Place sell orders
 		try {
 			trader1.placeNewOrder(marketNASDAQ, "SBUX", 100, 97.0, OrderType.SELL);
 			trader2.placeNewOrder(marketNASDAQ, "SBUX", 300, 97.5, OrderType.SELL);
@@ -78,7 +77,6 @@ public class Client {
 			trader15.placeNewMarketOrder(marketNASDAQ, "SBUX", 1500, 0, OrderType.SELL);
 
 		} catch (StockMarketExpection e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -93,7 +91,6 @@ public class Client {
 		trader7.printTrader();
 		trader15.printTrader();
 
-		// Place buy orders
 		try {
 			trader8.placeNewOrder(marketNASDAQ, "SBUX", 200, 101.0, OrderType.BUY);
 			trader9.placeNewOrder(marketNASDAQ, "SBUX", 300, 100.5, OrderType.BUY);
@@ -104,7 +101,6 @@ public class Client {
 			trader14.placeNewOrder(marketNASDAQ, "SBUX", 900, 98.0, OrderType.BUY);
 			trader16.placeNewMarketOrder(marketNASDAQ, "SBUX", 700, 0, OrderType.BUY);
 		} catch (StockMarketExpection e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
