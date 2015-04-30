@@ -6,8 +6,6 @@ import pkg.order.BuyOrder;
 import pkg.order.Order;
 import pkg.order.SellOrder;
 
-// Use these if you want
-
 public class OrderUtility {
 	public static boolean isAlreadyPresent(ArrayList<Order> ordersPlaced,
 			Order newOrder) {
