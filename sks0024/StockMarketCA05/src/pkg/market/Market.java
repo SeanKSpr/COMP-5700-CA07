@@ -23,8 +23,6 @@ public class Market {
 	
 	
 	public void addStock(Stock stock) throws StockMarketExpection {
-		//hint 0.0 is a magic number. Could refactor into a constant called like MINIMUM_PRICE or something
-		//Should probably factor out these two exception checks into another well named function
 		if (stock.getPrice() < 0.0) {
 			throw new StockMarketExpection("Stock has a negative price ("
 					+ stock.getSymbol() + ", " + stock.getPrice() + ")");
@@ -57,11 +55,9 @@ public class Market {
 	public void updateStockPrice(String symbol, double newPrice)
 			throws StockMarketExpection {
 		
-		//TODO: pull out exceptions as subfunctions
 		if (getStockForSymbol(symbol) == null) {
 			throw new StockMarketExpection("Stock not present (" + symbol + ")");
 		}
-		//magic number 0.0
 		if (newPrice < 0.0) {
 			throw new StockMarketExpection(
 					"Stock price cannot be set to a negative value (" + symbol
@@ -84,7 +80,6 @@ public class Market {
 	}
 
 	public void printHistoryFor(String symbol) {
-		//it just feels like this could be done differently
 		if (getStockForSymbol(symbol) != null) {
 			ArrayList<Double> priceList = getMarketHistory()
 					.getPriceFor(symbol);
